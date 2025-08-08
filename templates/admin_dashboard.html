@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Admin Dashboard</h1>
+
+    <h2>Pending Applications</h2>
+    {% if pending_passes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Pass ID</th>
+                    <th>Username</th>
+                    <th>Route</th>
+                    <th>Validity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pass in pending_passes %}
+                <tr>
+                    <td>{{ pass['id'] }}</td>
+                    <td>{{ pass['username'] }}</td>
+                    <td>{{ pass['route'] }}</td>
+                    <td>{{ pass['start_date'] }} to {{ pass['end_date'] }}</td>
+                    <td>
+                        <a href="{{ url_for('approve_pass', pass_id=pass['id']) }}" class="button">Approve</a>
+                        <a href="{{ url_for('reject_pass', pass_id=pass['id']) }}" class="button red">Reject</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No pending applications.</p>
+    {% endif %}
+
+    <h2>Approved Passes</h2>
+    {% if approved_passes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Pass ID</th>
+                    <th>Username</th>
+                    <th>Route</th>
+                    <th>Validity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pass in approved_passes %}
+                <tr>
+                    <td>{{ pass['id'] }}</td>
+                    <td>{{ pass['username'] }}</td>
+                    <td>{{ pass['route'] }}</td>
+                    <td>{{ pass['start_date'] }} to {{ pass['end_date'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

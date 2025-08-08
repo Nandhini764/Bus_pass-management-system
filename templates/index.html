@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Welcome to the Bus Pass Management System</h1>
+    <p>Your one-stop solution for applying, renewing, and managing bus passes.</p>
+    {% if 'user_id' in session %}
+        <p>Hello, {{ session['username'] }}!</p>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a> to get started.</p>
+    {% endif %}
+{% endblock %}

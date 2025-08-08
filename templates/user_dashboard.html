@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Welcome to your Dashboard, {{ session['username'] }}!</h1>
+    
+    <div class="actions">
+        <a href="{{ url_for('apply_pass') }}" class="button">Apply for/Renew Bus Pass</a>
+    </div>
+
+    <h2>My Bus Passes</h2>
+    {% if passes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Pass ID</th>
+                    <th>Route</th>
+                    <th>Validity</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pass in passes %}
+                <tr>
+                    <td>{{ pass['id'] }}</td>
+                    <td>{{ pass['route'] }}</td>
+                    <td>{{ pass['start_date'] }} to {{ pass['end_date'] }}</td>
+                    <td>
+                        <span class="status-{{ pass['status'] }}">
+                            {{ pass['status'].capitalize() }}
+                            {% if pass['is_active'] and pass['status'] == 'approved' %} (Active) {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% if pass['status'] == 'approved' %}
+                            <a href="#" onclick="window.print()" class="button print">Print Pass</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You do not have any bus passes yet. <a href="{{ url_for('apply_pass') }}">Apply for one now</a>.</p>
+    {% endif %}
+{% endblock %}

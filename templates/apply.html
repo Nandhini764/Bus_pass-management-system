@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Apply for Bus Pass</h1>
+    <form method="post">
+        <div>
+            <label for="route">Route:</label>
+            <input type="text" id="route" name="route" required>
+        </div>
+        
+        <div>
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required>
+        </div>
+        
+        <div>
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required>
+        </div>
+        
+        <button type="submit">Submit Application</button>
+    </form>
+        <p> <a href="{{ url_for('user_dashboard') }}">User dashboard</a>.</p>
+{% endblock %}
